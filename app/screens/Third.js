@@ -10,6 +10,13 @@ export default class Third extends React.Component {
           headerRight: (
             <Button onPress={params.increaseCount} title="+1" color="#fff" />
           ),
+          headerLeft: (
+            <Button 
+                onPress={()=>navigation.navigate('MyModal')}
+                title='Info'
+                color='white'
+            />
+          ),
         };     
       };  
 
