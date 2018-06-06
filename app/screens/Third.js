@@ -39,12 +39,12 @@ export default class Third extends React.Component {
                 <Text>Count:{this.state.count}</Text>
                 <Button 
                 title='Go back to Details'
-                onPress={()=> this.props.navigation.navigate('Details')}
+                onPress={()=> this.props.navigation.goBack()}
                 />
-                <Button 
+                {/* <Button 
                 title='Go back to Home'
                 onPress={()=> this.props.navigation.popToTop()}
-                />
+                /> */}
                 <Button
                 title="Update the title"
                 onPress={() => this.props.navigation.setParams({name: 'Updated!'})}
