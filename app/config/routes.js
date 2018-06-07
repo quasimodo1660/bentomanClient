@@ -74,7 +74,7 @@ const NavBottom = createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'orange',
+      activeTintColor: '#fb6e1c',
       inactiveTintColor: 'gray',
     },
   }
