@@ -1,9 +1,20 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
+import { Image,Button, View, Text } from 'react-native';
+import LogoTitle from '../components/Logo'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'Home',
+    title: 'BENTOMAN',    
+    // headerLeft: <LogoTitle />,
+    // headerRight:(
+    //   <Ionicons
+    //     name='ios-add-circle' 
+    //     size={25}
+    //     color='orange'
+    //     onPress = {()=> this.props.navigation.navigate('Third')}
+    //   />
+    // ),
   };
     render() {
       return (
