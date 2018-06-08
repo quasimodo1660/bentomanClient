@@ -8,9 +8,9 @@ export const { width, height } = Dimensions.get('window');
 export default class Third extends React.Component {
     constructor(props){
         super(props)
-        this.isLoading=true
+        this.state={isLoading:true}
         this.itemUrl=this.props.navigation.getParam('itemUrl');
-        this.data={}
+        
     }
    
 
@@ -22,11 +22,16 @@ export default class Third extends React.Component {
       };  
 
     componentWillMount() {
+      // console.log(this.itemUrl)
         return fetch(this.itemUrl)
             .then((response) => response.json())
             .then((responseJson) => {
-                this.data=responseJson;
-                this.isLoading=false
+              // console.log(responseJson)
+                this.setState({
+                  isLoading:false,
+                  dataSource:responseJson,
+                });
+                // console.log(this.state.dataSource)
             })
             .catch((error) =>{
                 console.error(error);
@@ -36,7 +41,7 @@ export default class Third extends React.Component {
    
 
     render(){
-        if(this.isLoading){
+        if(this.state.isLoading){
             return(
               <View style={{flex: 1, padding: 20}}>
                 <ActivityIndicator/>
@@ -45,9 +50,28 @@ export default class Third extends React.Component {
           }
         return (
            
-         <View style={styles.container}>
-            <Text>sb</Text>   
-          </View>
+         <ScrollView style={styles.container}>
+            <SwiperFlatList
+              autoplay
+              autoplayDelay={2}
+              autoplayLoop
+              index={0}
+              showPagination
+            >
+       
+        {this.state.dataSource.images.map((image,index)=>(
+         
+            <Image 
+              key={'img'+index}
+              style={styles.child}
+              source={{uri:image.image}}
+            />
+         
+        ))}
+          
+         
+            </SwiperFlatList>
+          </ScrollView>
         );
     }
 }

@@ -32,8 +32,6 @@ export default class HomeScreen extends React.Component {
         this.setState({
           isLoading: false,
           dataSource: responseJson,
-        }, function(){
-
         });
 
       })
@@ -56,7 +54,7 @@ export default class HomeScreen extends React.Component {
     for(let x=0;x<this.state.dataSource.length;x++){
       var item={}
       item['data']={}
-      item['key']=x
+      item['key']="image"+x
       item.data['caption']=this.state.dataSource[x].title
       item.data['url']=this.state.dataSource[x].url
       item['uri']=this.state.dataSource[x].images[0].image
