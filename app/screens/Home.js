@@ -3,6 +3,7 @@ import { ActivityIndicator,Image,Button, View, Text } from 'react-native';
 import LogoTitle from '../components/Logo'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Masonry from 'react-native-masonry';
+import FastImage from 'react-native-fast-image';
 
 export default class HomeScreen extends React.Component {
   constructor(props){
@@ -55,6 +56,7 @@ export default class HomeScreen extends React.Component {
     for(let x=0;x<this.state.dataSource.length;x++){
       var item={}
       item['data']={}
+      item['key']=x
       item.data['caption']=this.state.dataSource[x].title
       item.data['url']=this.state.dataSource[x].url
       item['uri']=this.state.dataSource[x].images[0].image
@@ -62,10 +64,16 @@ export default class HomeScreen extends React.Component {
       item.renderFooter=(data)=>{
         // console.log(self)
         return (
-          <View key='brick-footer' style={{backgroundColor: '#fafafa', padding: 5, paddingRight: 9, paddingLeft: 9,borderRadius:10}}>
-            <Text style={{lineHeight: 20, fontSize: 15}}>{data.caption}</Text>
+          <View key={'brick-footer'+x} style={{backgroundColor: '#fafafa', padding: 5, paddingRight: 9, paddingLeft: 9,borderRadius:10}}>
+            <Text style={{lineHeight: 20, fontSize: 16}}>{data.caption}</Text>
           </View>
         )
+      }
+      item.onPress=(data)=>{
+        this.props.navigation.navigate('Third',{
+          itemUrl:data.url,
+          itemTitle:data.caption
+        })
       }
       data.push(item)
     }
@@ -75,6 +83,7 @@ export default class HomeScreen extends React.Component {
           bricks={data}
           imageContainerStyle={{borderRadius:10}}
           spacing={3}
+          customImageComponent={FastImage} 
         />
       </View>
     );
