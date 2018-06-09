@@ -1,5 +1,8 @@
 import React from 'react';
 import { Button, View, Text } from 'react-native';
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
+
+
 
 export default class DetailsScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
@@ -31,6 +34,30 @@ export default class DetailsScreen extends React.Component {
             title='Go to Third'
             onPress={()=> this.props.navigation.navigate('Third')}
           />
+           <Card>
+    <CardImage 
+      source={{uri: 'http://bit.ly/2GfzooV'}} 
+      title="Top 10 South African beaches"
+    />
+    <CardTitle
+      subtitle="Number 6"
+    />
+    <CardContent text="Clifton, Western Cape" />
+    <CardAction 
+      separator={true} 
+      inColumn={false}>
+      <CardButton
+        onPress={() => {}}
+        title="Share"
+        color="#FEB557"
+      />
+      <CardButton
+        onPress={() => {}}
+        title="Explore"
+        color="#FEB557"
+      />
+    </CardAction>
+  </Card>
         </View>
       );
     }

@@ -1,6 +1,12 @@
 import React,{PureComponent} from 'react';
 import { StyleSheet,Dimensions,Image,ScrollView,ActivityIndicator,Button, View, Text } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
+import Tags from "react-native-tags";
+
+
+
 
 export const { width, height } = Dimensions.get('window');
 
@@ -48,9 +54,11 @@ export default class Third extends React.Component {
               </View>
             )
           }
-        return (
-           
-         <ScrollView style={styles.container}>
+        if(this.state.dataSource.images.length<2){
+          showimg=(<Image style={styles.child} source={{uri:this.state.dataSource.images[0].image }}/>)
+        }
+        else{
+          showimg=(
             <SwiperFlatList
               autoplay
               autoplayDelay={2}
@@ -58,19 +66,34 @@ export default class Third extends React.Component {
               index={0}
               showPagination
             >
-       
-        {this.state.dataSource.images.map((image,index)=>(
-         
-            <Image 
-              key={'img'+index}
-              style={styles.child}
-              source={{uri:image.image}}
-            />
-         
-        ))}
-          
-         
+              {this.state.dataSource.images.map((image,index)=>(
+              
+                  <Image 
+                    key={'img'+index}
+                    style={styles.child}
+                    source={{uri:image.image}}
+                  />
+              
+              ))}         
             </SwiperFlatList>
+          )
+        }
+        return (
+           
+         <ScrollView style={styles.container}>
+            {showimg}
+            
+            <Card>   
+            <Tags
+              initialTags={this.state.dataSource.tags}
+              // containerStyle={{ justifyContent: "center" }}
+              inputStyle={{ backgroundColor: "white" }}
+            />           
+              <CardTitle
+                subtitle='Description'
+              />
+              <CardContent text={this.state.dataSource.description} />     
+            </Card>
           </ScrollView>
         );
     }
@@ -83,7 +106,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white'
   },
-  child: {
+  child: {  
     height: height * 0.5,
     width,
     justifyContent: 'center'
@@ -91,5 +114,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: width * 0.5,
     textAlign: 'center'
+  },
+  tag:{
+    backgroundColor:'grey',
+    borderRadius:25,
   }
 });
