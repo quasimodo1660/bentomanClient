@@ -5,6 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
 import Tags from "react-native-tags";
 import Mapbox from '@mapbox/react-native-mapbox-gl';
+import Moment from 'moment';
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXVhc2ltb2RvMTY2MCIsImEiOiJjamc0NDl3cjUxM3BrMnF4ZmtxOXE3YWg3In0.kVwbt6_30MvCJq12iNchOQ');
 
@@ -54,7 +55,7 @@ export default class Third extends React.Component {
           <View style={styles.annotationContainer}>
             <View style={styles.annotationFill} />
           </View>
-          <Mapbox.Callout title={this.state.dataSource.title} />
+          <Mapbox.Callout title='sb' />
         </Mapbox.PointAnnotation>
       )
     }
@@ -123,9 +124,13 @@ export default class Third extends React.Component {
                   styleURL={Mapbox.StyleURL.Dark}
                   zoomLevel={15}
                   centerCoordinate={[this.state.dataSource.lon, this.state.dataSource.lat]}
-                  style={styles.map}>
+                  style={styles.map}
+                  >
                   {this.renderAnnotations()}
               </Mapbox.MapView>
+              <CardTitle
+                subtitle='Pick up time'/>
+              <CardContent text={Moment(this.state.dataSource.offertime).format('ddd,MMMM d,YYYY')}/>
             </Card>
           </ScrollView>
         );
@@ -140,8 +145,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   map:{
-   width:width*0.3,
-    height:200,
+  
+    flexDirection:'row',
+    height:150,
     // marginRight:5
   },
   child: {  
