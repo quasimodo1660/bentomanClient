@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View,Text } from 'react-native';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
 
 
 
-export default class DetailsScreen extends React.Component {
+
+export default class DetailsScreen extends React.PureComponent {
   static navigationOptions = ({navigation}) => {
     return{
       headerTitle: navigation.getParam('name','shaxixi'),
@@ -24,12 +25,36 @@ export default class DetailsScreen extends React.Component {
       const {navigation} = this.props;
       const name = navigation.getParam('name','ajj')
       const age = navigation.getParam('age','diao')
+      const data = [
+        {
+            value: 50,
+            label: 'One',
+        },
+        {
+            value: 10,
+            label: 'Two',
+        },
+        {
+            value: 40,
+            label: 'Three',
+        },
+        {
+            value: 95,
+            label: 'Four',
+        },
+        {
+            value: 85,
+            label: 'Five',
+        },
+    ]
+
+      
 
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Details Screen</Text>
+          {/* <Text>Details Screen</Text>
           <Text>name:{JSON.stringify(name)}</Text>
-          <Text>age:{age}</Text>
+          <Text>age:{age}</Text> */}
           <Button 
             title='Go to Third'
             onPress={()=> this.props.navigation.navigate('Third')}
@@ -58,7 +83,7 @@ export default class DetailsScreen extends React.Component {
       />
     </CardAction>
   </Card>
-        </View>
+  </View>
       );
     }
   }
