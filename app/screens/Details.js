@@ -36,7 +36,7 @@ export default class DetailsScreen extends React.Component {
           />
            <Card>
     <CardImage 
-      source={{uri: 'http://bit.ly/2GfzooV'}} 
+      source={{uri: 'https://i.imgur.com/Keg7X6S.png'}} 
       title="Top 10 South African beaches"
     />
     <CardTitle
