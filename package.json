@@ -16,6 +16,7 @@
     "react-native": "0.55.4",
     "react-native-calendars": "^1.19.3",
     "react-native-cards": "^1.1.4",
+    "react-native-elements": "^0.19.1",
     "react-native-fast-image": "^4.0.14",
     "react-native-masonry": "^0.4.7",
     "react-native-material-ui": "^1.22.3",
@@ -24,6 +25,7 @@
     "react-native-svg-charts": "^5.2.0",
     "react-native-swiper-flatlist": "^1.0.7",
     "react-native-tags": "^1.2.1",
+    "react-native-timeago": "^0.4.0",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.2.0"
   },

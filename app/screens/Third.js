@@ -1,11 +1,14 @@
-import React,{PureComponent} from 'react';
-import { StyleSheet,Dimensions,Image,ScrollView,ActivityIndicator,Button, View, Text } from 'react-native';
+import React from 'react';
+import { StyleSheet,Dimensions,Image,ScrollView,ActivityIndicator,View, Text } from 'react-native';
 import SwiperFlatList from 'react-native-swiper-flatlist';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
+import { Card, CardTitle, CardContent } from 'react-native-cards';
 import Tags from "react-native-tags";
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import Moment from 'moment';
+import { Rating } from 'react-native-elements';
+import TimeAgo from 'react-native-timeago';
+
+
 
 Mapbox.setAccessToken('pk.eyJ1IjoicXVhc2ltb2RvMTY2MCIsImEiOiJjamc0NDl3cjUxM3BrMnF4ZmtxOXE3YWg3In0.kVwbt6_30MvCJq12iNchOQ');
 
@@ -148,8 +151,21 @@ export default class Third extends React.Component {
              
               <CardContent text='out of 5' />
               
-              
             </Card>
+            {this.state.dataSource.reviews.map((review,index)=>(
+              <Card key={'review'+index}>
+                <CardTitle subtitle={review.user_name}/>
+                <TimeAgo style={styles.rating} time={review.updated_at}/>      
+                <Rating
+                  imageSize={15}
+                  readonly
+                  startingValue={review.score}
+                  style={ styles.rating }
+                />
+                <CardContent text={review.content} />
+              </Card>
+            ))}
+            
           </ScrollView>
         );
     }
@@ -201,5 +217,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: 'orange',
     transform: [{ scale: 0.6 }],
+  },
+  review:{
+    backgroundColor:'#bdbdbd',
+  },
+  rating:{
+    marginLeft:15,
+    marginBottom:2,
   }
 });
