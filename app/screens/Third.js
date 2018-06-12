@@ -95,6 +95,14 @@ export default class Third extends React.Component {
             </SwiperFlatList>
           )
         }
+        if(this.state.dataSource.reviews.length>0){
+          rate=(this.state.dataSource.reviews.reduce((a,b)=>{
+            return a+=b.score
+          },0)/this.state.dataSource.reviews.length).toFixed(2)
+        }
+        else{
+          rate=0.0
+        }
         return (
            
          <ScrollView style={styles.container}>
@@ -132,6 +140,16 @@ export default class Third extends React.Component {
                 subtitle='Pick up time'/>
               <CardContent text={Moment(this.state.dataSource.offertime).format('ddd,MMMM d,YYYY')}/>
             </Card>
+            <Card>
+              <CardTitle
+                title="Ratings and Reviews"/>
+              <CardContent text={this.state.dataSource.reviews.length + ' Ratings'} />
+              <Text style={styles.rate}>{rate}</Text>
+             
+              <CardContent text='out of 5' />
+              
+              
+            </Card>
           </ScrollView>
         );
     }
@@ -158,6 +176,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: width * 0.5,
     textAlign: 'center'
+  },
+  rate:{
+    fontSize:40,
+    color:'#424242',
+    fontWeight:'200',
+    marginLeft:15
   },
   tag:{
     backgroundColor:'grey',
