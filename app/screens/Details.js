@@ -1,90 +1,37 @@
 import React from 'react';
 import { Button, View,Text } from 'react-native';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
-
+import SocketIOClient from 'socket.io-client';
 
 
 
 export default class DetailsScreen extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.socket=SocketIOClient('http://13.57.221.111:6789');
+    this.jsuser={}
+  }
   static navigationOptions = ({navigation}) => {
     return{
-      headerTitle: navigation.getParam('name','shaxixi'),
-      headerRight: (
-        <Button
-          onPress={() => alert('This is a button!')}
-          title="Info"
-          color="#fff"
-        />
-      )
-    };
+      headerTitle: 'Messaging'
     
-  };  
+    };  
+  } 
+  componentDidMount(){
+    this.socket.on('connect',()=>{
+      this.socket.emit('authentication',this.jsuser)
+    })
   
-  render() {
-
-      const {navigation} = this.props;
-      const name = navigation.getParam('name','ajj')
-      const age = navigation.getParam('age','diao')
-      const data = [
-        {
-            value: 50,
-            label: 'One',
-        },
-        {
-            value: 10,
-            label: 'Two',
-        },
-        {
-            value: 40,
-            label: 'Three',
-        },
-        {
-            value: 95,
-            label: 'Four',
-        },
-        {
-            value: 85,
-            label: 'Five',
-        },
-    ]
-
-      
-
-      return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          {/* <Text>Details Screen</Text>
-          <Text>name:{JSON.stringify(name)}</Text>
-          <Text>age:{age}</Text> */}
-          <Button 
-            title='Go to Third'
-            onPress={()=> this.props.navigation.navigate('Third')}
-          />
-           <Card>
-    <CardImage 
-      source={{uri: 'https://i.imgur.com/Keg7X6S.png'}} 
-      title="Top 10 South African beaches"
-    />
-    <CardTitle
-      subtitle="Number 6"
-    />
-    <CardContent text="Clifton, Western Cape" />
-    <CardAction 
-      separator={true} 
-      inColumn={false}>
-      <CardButton
-        onPress={() => {}}
-        title="Share"
-        color="#FEB557"
-      />
-      <CardButton
-        onPress={() => {}}
-        title="Explore"
-        color="#FEB557"
-      />
-    </CardAction>
-  </Card>
-  </View>
-      );
-    }
   }
-  
+
+
+  render() {
+   
+
+    return(
+     <View>
+       <Text>sbb</Text>
+     </View>
+    );
+  }
+}  
