@@ -2,12 +2,13 @@ import React from 'react';
 import { Button, View,Text } from 'react-native';
 import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
 import {jsuser, userList} from '../store/Store.js'
-import { observable } from 'mobx'
+import { observer } from 'mobx-react/native'
+import { autorun } from 'mobx'
 
 
 
-// @observable
-export default class DetailsScreen extends React.PureComponent {
+@observer
+export default class DetailsScreen extends React.Component {
   constructor(props) {
     super(props);
     
@@ -19,17 +20,17 @@ export default class DetailsScreen extends React.PureComponent {
     };  
   } 
   componentDidMount(){
-    console.log(userList.getUserList())
+    
   }
 
  
   render() {
    
-    
-    return(
+    return(  
      <View>
+       <Text>sbb</Text>
        <Text>{userList.getUserList().length}</Text>
-     </View>
+    </View>
     );
   }
 }  

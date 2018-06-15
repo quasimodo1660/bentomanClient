@@ -8,11 +8,16 @@ class ObservableUser {
     this.jsuser={
       username:'',
       client:null,
-      isUser:false
+      user_id:null,
+      isUser:false,
     };
   }
-  @computed get user(){
+  getUser(){
     return this.jsuser
+  }
+  @action.bound
+  setUserID(data){
+    this.jsuser.user_id=data
   }
 }
 
@@ -22,14 +27,21 @@ class ObservableUserlist {
   // constructor(){
   //   this.userList=[]
   // }
+  
+  getUserList(){
+    return this.userList
+  }
+
+
+  @computed get users(){
+    return this.userList.length
+  }
+ 
   @action.bound 
   setUserList(data){
     this.userList=data;
   }
 
-  @action getUserList(){
-    return this.userList
-  }
 }
 
 const jsuser = new ObservableUser()

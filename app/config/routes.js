@@ -5,6 +5,7 @@ import HomeScreen from '../screens/Home'
 import Third from '../screens/Third'
 import Modal from '../screens/Modal'
 import DetailsScreen from '../screens/Details'
+import {userList,jsuser} from '../store/Store.js'
 
 
 const MainStack = createStackNavigator(
@@ -16,7 +17,7 @@ const MainStack = createStackNavigator(
     {
       initialRouteName: 'Home',
       
-    navigationOptions:{
+      navigationOptions:{
       headerStyle: {
         backgroundColor: '#fafafa',
       },
@@ -77,6 +78,10 @@ const NavBottom = createBottomTabNavigator(
       activeTintColor: '#fb6e1c',
       inactiveTintColor: 'gray',
     },
+    passProps:{
+      users:userList,
+      user:jsuser
+    }
   }
 )
 
