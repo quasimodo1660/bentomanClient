@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, View,Text } from 'react-native';
-import { Card, CardTitle, CardContent, CardAction, CardButton, CardImage } from 'react-native-cards';
+import { StyleSheet,Button, View,Text, } from 'react-native';
 import {jsuser, userList} from '../store/Store.js'
 import { observer } from 'mobx-react/native'
-import { autorun } from 'mobx'
+import { SearchBar, ListItem, } from 'react-native-elements'
+
 
 
 
@@ -27,10 +27,32 @@ export default class DetailsScreen extends React.Component {
   render() {
    
     return(  
-     <View>
+     <View style={styles.container}>
+      <SearchBar
+        lightTheme
+        round
+        searchIcon={true}
+        placeholder='Search' />
+        {
+          userList.getUserList().map((l,i)=>(
+            <ListItem
+              key={l.user_id}
+              roundAvatar
+              avatar={{source:{ uri:'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg' } }}
+              title={l.username}
+            />
+          ))
+        }
        <Text>sbb</Text>
        <Text>{userList.getUserList().length}</Text>
     </View>
     );
   }
 }  
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+})
