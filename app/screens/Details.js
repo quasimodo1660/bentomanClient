@@ -22,10 +22,12 @@ export default class DetailsScreen extends React.Component {
   componentDidMount(){
     
   }
-
+  
  
   render() {
-   
+    const goToChatWindow = (data)=>{
+      this.props.navigation.navigate('ChatWindow',{chatTitle:data})
+    }
     return(  
      <ScrollView>
       <SearchBar
@@ -42,6 +44,7 @@ export default class DetailsScreen extends React.Component {
               avatar={<Image source={{ uri: l.img }} style={{borderRadius:15, height:30, width:30 }} />}
               title={l.username}
               subtitle={l.platform}
+              onPress={()=>{goToChatWindow(l.username)}}
             />)
             }          
           })

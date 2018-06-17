@@ -5,6 +5,7 @@ import HomeScreen from '../screens/Home'
 import Third from '../screens/Third'
 import Modal from '../screens/Modal'
 import DetailsScreen from '../screens/Details'
+import ChatScreen from '../screens/Chat.js'
 import {userList,jsuser} from '../store/Store.js'
 
 
@@ -32,7 +33,7 @@ const MainStack = createStackNavigator(
 
 const DetailsStack = createStackNavigator({
   Datails:DetailsScreen,
-  Third:Third,
+  ChatWindow:ChatScreen,
 })
 
 
