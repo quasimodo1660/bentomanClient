@@ -13,13 +13,15 @@ class Socket  {
         })
 
         this.socket.on('generate_id',(data)=>{
+            console.log(data)
             jsuser.setUserID(data.client_id)
+            console.log(jsuser.getUser().user_id)
         })
 
 
         this.socket.on('my_full_broadcast_event',(data)=>{
             userList.setUserList(data.users)
-            console.log('insocket:'+userList)
+            // console.log('insocket:'+userList)
         })
 
 

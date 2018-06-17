@@ -1,5 +1,5 @@
 import {observable, action, computed} from 'mobx'
-
+import { Platform } from 'react-native'
 
 
 class ObservableUser {
@@ -10,6 +10,7 @@ class ObservableUser {
       client:null,
       user_id:null,
       isUser:false,
+      platform:Platform.OS
     };
   }
   getUser(){
