@@ -45,8 +45,33 @@ class ObservableUserlist {
 
 }
 
+class ObservableConversation {
+  @observable conversation
+
+  constructor(){
+    this.conversation=[]
+  }
+
+  getConversation(){
+    return this.conversation
+  }
+  @action.bound 
+  setConversation(data){
+    this.conversation=data;
+  }
+  @action.bound
+  addMessage(data){
+    this.conversation.push(data)
+  }
+}
+
+
+
 const jsuser = new ObservableUser()
 export {jsuser}
 
 const userList= new ObservableUserlist()
 export {userList}
+
+const conversation = new ObservableConversation()
+export {conversation}
