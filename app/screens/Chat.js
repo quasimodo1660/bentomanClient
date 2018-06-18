@@ -18,39 +18,23 @@ export default class ChatScreen extends React.Component {
         };     
     }; 
 
-    componentWillMount() {
-        this.setState({
-          messages: [
-            {
-              _id: 1,
-              text: 'Hello developer',
-              createdAt: new Date(),
-              user: {
-                _id: 2,
-                name: 'React Native',
-                avatar: 'https://placeimg.com/140/140/any',
-              },
-            },
-          ],
-        })
-      }
-    
-      onSend(messages = []) {
+   
+    onSend(messages = []) {
         this.setState(previousState => ({
           messages: GiftedChat.append(previousState.messages, messages),
         }))
       }
     
-      render() {
+    render() {
         return (
           <GiftedChat
-            messages={this.state.messages}
+            messages={conversation.getConversation()}
             onSend={messages => 
                 {this.onSend(messages)
                 console.log(this.state.messages)}}
-            user={{
-              _id: 1,
-            }}
+            // user={{
+            //   _id: 1,
+            // }}
           />
         )
       }

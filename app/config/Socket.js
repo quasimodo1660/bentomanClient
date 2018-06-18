@@ -24,13 +24,33 @@ class Socket  {
         })
 
         this.socket.on('return_conversations',(data)=>{
-            // console.log(data)
-            conversation.setConversation(data.messages)
-        
+            conversation.EmptyConversation()
+            var temp={
+                '_id':null,
+                'text':'',
+                'createdAt':null,
+                'user':{
+                    '_id':null,
+                    'name':'',
+                    'avatar':''
+                }
+            }
+            data.messages.map((x,i)=>{
+                console.log(i)
+                console.log(x)
+                temp._id=i
+                temp.text=x.content
+                temp.createdAt=x.createdAt
+                temp.user._id=x.sender.replace('G')
+                temp.user.name=x.sender_username
+                temp.user.avatar=x.sender_img
+                conversation.addMessage(temp)
+            })
         })
         
         this.socket.on('received_message',(data)=>{
-            conversation.addMessage(data)
+
+            // conversation.addMessage(data)
             console.log(conversation.getConversation())
         })
     }

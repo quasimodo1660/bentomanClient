@@ -56,12 +56,16 @@ class ObservableConversation {
     return this.conversation
   }
   @action.bound 
+  EmptyConversation(){
+    this.conversation=[];
+  }
+  @action.bound 
   setConversation(data){
     this.conversation=data;
   }
   @action.bound
   addMessage(data){
-    this.conversation.push(data)
+    this.conversation.unshift(data)
   }
 }
 
