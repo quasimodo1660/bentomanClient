@@ -10,15 +10,20 @@ class ObservableUser {
       client:null,
       user_id:null,
       isUser:false,
+      img:'',
       platform:Platform.OS
     };
   }
+  
   getUser(){
     return this.jsuser
   }
+
   @action.bound
-  setUserID(data){
-    this.jsuser.user_id=data
+  InitUser(id,username,img){
+    this.jsuser.user_id=id
+    this.jsuser.username=username
+    this.jsuser.img=img
   }
 }
 

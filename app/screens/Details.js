@@ -27,7 +27,10 @@ export default class DetailsScreen extends React.Component {
  
   render() {
     const goToChatWindow = (data)=>{
-      this.props.navigation.navigate('ChatWindow',{chatTitle:data})
+      this.props.navigation.navigate('ChatWindow',{
+        chatTitle:data.username,
+        chaterID:data.user_id
+      })
     }
     return(  
      <ScrollView>
@@ -46,7 +49,7 @@ export default class DetailsScreen extends React.Component {
               title={l.username}
               subtitle={l.platform}
               onPress={()=>{
-                goToChatWindow(l.username)
+                goToChatWindow(l)
                 socket.loadConversation({'sender':jsuser.getUser().user_id,'receiver':l.user_id})
               }}
             />)

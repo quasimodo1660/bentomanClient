@@ -1,9 +1,23 @@
-import { observer } from 'mobx-react/native'
 import config from './config.js'
 import SocketIOClient from 'socket.io-client';
 import { userList,jsuser,conversation } from '../store/Store.js'
 
-// @observer
+class ReceivedMessage {
+    constructor(id,text,createdAt,user_id,user_name,user_avatar){
+        this._id=id,
+        this.text=text,
+        this.createdAt=createdAt
+        this.user._id=user_id
+        this.user.name=user_name
+        this.user.avatar=user_avatar
+    }
+}
+
+const text= new ReceivedMessage(1,'sg',new Date(),'G1','sb','dads')
+
+console.log(text)
+
+
 class Socket  {
     constructor() {
         this.socket=SocketIOClient(config.socketServer.server);
@@ -13,8 +27,8 @@ class Socket  {
         })
         this.socket.on('generate_id',(data)=>{
             // console.log(data)
-            jsuser.setUserID(data.client_id)
-            // console.log(jsuser.getUser().user_id)
+            jsuser.InitUser(data.client_id,data.client_name,data.client_img)
+            console.log(jsuser.getUser())
         })
     
     
@@ -25,38 +39,32 @@ class Socket  {
 
         this.socket.on('return_conversations',(data)=>{
             conversation.EmptyConversation()
-            var temp={
-                '_id':null,
-                'text':'',
-                'createdAt':null,
-                'user':{
-                    '_id':null,
-                    'name':'',
-                    'avatar':''
-                }
-            }
+            let msg
             data.messages.map((x,i)=>{
-                console.log(i)
-                console.log(x)
-                temp._id=i
-                temp.text=x.content
-                temp.createdAt=x.createdAt
-                temp.user._id=x.sender.replace('G')
-                temp.user.name=x.sender_username
-                temp.user.avatar=x.sender_img
-                conversation.addMessage(temp)
+                //if(x.sender!=jsuser.getUser().user_id){
+                    msg=new ReceivedMessage(x.mid,x.content,x.createdAt,x.sender,x.sender_username,x.sender_img)
+                //}
+                conversation.addMessage(msg)
+                
+                
             })
         })
         
-        this.socket.on('received_message',(data)=>{
-
-            // conversation.addMessage(data)
+        this.socket.on('rn_received_message',(x)=>{
+            console.log(x)
+            let msg = new ReceivedMessage(x.mid,x.content,x.createdAt,x.sender,x.sender_username,x.sender_img)
             console.log(conversation.getConversation())
+            conversation.addMessage(msg)
+            
         })
     }
     
     loadConversation=(data)=>{
         this.socket.emit('load_conversation',data)
+    }
+    
+    sendMessage=(message,chater)=>{
+        this.socket.emit('new_message_node',{'sender':jsuser.getUser(),'receiver':chater,'content':message.text,'mid':message._id})
     }
 }
 

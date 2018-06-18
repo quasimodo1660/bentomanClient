@@ -3,6 +3,7 @@ import { StyleSheet,Dimensions,Image,ScrollView,ActivityIndicator,Text } from 'r
 import { observer } from 'mobx-react/native'
 import {jsuser, conversation} from '../store/Store.js'
 import { GiftedChat } from 'react-native-gifted-chat'
+import socket from '../config/Socket.js'
 
 
 
@@ -10,6 +11,7 @@ import { GiftedChat } from 'react-native-gifted-chat'
 export default class ChatScreen extends React.Component {
     constructor(props){
         super(props)
+        this.chater=this.props.navigation.getParam('chaterID')
     }
 
     static navigationOptions = ({navigation}) => {
@@ -19,10 +21,9 @@ export default class ChatScreen extends React.Component {
     }; 
 
    
-    onSend(messages = []) {
-        this.setState(previousState => ({
-          messages: GiftedChat.append(previousState.messages, messages),
-        }))
+    onSend(messages,chater) {
+        console.log(messages[0])
+        socket.sendMessage(messages[0],chater)
       }
     
     render() {
@@ -30,11 +31,12 @@ export default class ChatScreen extends React.Component {
           <GiftedChat
             messages={conversation.getConversation()}
             onSend={messages => 
-                {this.onSend(messages)
-                console.log(this.state.messages)}}
-            // user={{
-            //   _id: 1,
-            // }}
+                {this.onSend(messages,this.chater)}}
+            user={{
+              _id: jsuser.getUser().user_id,
+              name:jsuser.getUser().username,
+              avatar:jsuser.getUser().img
+            }}
           />
         )
       }
