@@ -1,4 +1,4 @@
-import {observable, action, computed} from 'mobx'
+import {observable, action, computed, autorun} from 'mobx'
 import { Platform } from 'react-native'
 
 
@@ -57,9 +57,10 @@ class ObservableConversation {
     this.conversation=[]
   }
 
-  getConversation(){
-    return this.conversation
+  getConversation(){    
+    return this.conversation.slice()
   }
+
   @action.bound 
   EmptyConversation(){
     this.conversation=[];
