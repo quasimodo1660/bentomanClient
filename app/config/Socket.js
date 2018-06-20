@@ -1,11 +1,9 @@
 import config from './config.js'
 import SocketIOClient from 'socket.io-client';
 import { userList,jsuser,conversation } from '../store/Store.js'
-// import pushController from './PushController'
-import { PushNotificationIOS, AppState,AsyncStorage } from 'react-native'
-import PushNotification from 'react-native-push-notification';
+import { AppState,AsyncStorage } from 'react-native'
 import { toJS } from 'mobx'
-
+import { pushNotifications } from '../services';
 
 
 
@@ -31,6 +29,7 @@ class ReceivedMessage {
 
 class Socket  {
     constructor() {
+        
         AppState.addEventListener('change',this._saveDataToLocalStore)
 
         this.socket=SocketIOClient(config.socketServer.server,{
@@ -53,14 +52,15 @@ class Socket  {
             if(cid){
                 jsuser.setUserClient(cid)
             }
-            console.log(cid)
-            console.log(jsuser.getUser().client)
+            // console.log(cid)
+            // console.log(jsuser.getUser().client)
             this.socket.emit('authentication',jsuser.getUser())
         })
+
         this.socket.on('generate_id',(data)=>{
             // console.log(data)
             jsuser.InitUser(data.client_id,data.client_name,data.client_img)
-            console.log(jsuser.getUser())
+            // console.log(jsuser.getUser())
         })
     
     
@@ -79,20 +79,15 @@ class Socket  {
                 msg.setUser(x.sender,x.sender_username,x.sender_img)
                 conversation.addMessage(msg)                
             })
-            console.log(conversation.getConversation())
+           
         })
         
-        this.socket.on('rn_received_message',(x)=>{
-            console.log(x)
+        this.socket.on('rn_received_message',(x)=>{         
             let msg = new ReceivedMessage(x.content,x.createdAt)
             msg.setID(x.mid)
             msg.setUser(x.sender,x.sender_username,x.sender_img)
             conversation.addMessage(msg)    
-            console.log(conversation.getConversation())   
-            PushNotification.localNotificationSchedule({
-                message: "My Notification Message", // (required)
-                date: new Date(Date.now() + (20 * 1000)) // in 60 secs
-              });
+            pushNotifications.localNotification(x.sender_username+' send you a message',x.content)
         })
     }
     

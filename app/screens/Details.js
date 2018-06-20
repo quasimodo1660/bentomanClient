@@ -4,7 +4,7 @@ import {jsuser, userList} from '../store/Store.js'
 import { observer } from 'mobx-react/native'
 import { SearchBar, ListItem, } from 'react-native-elements'
 import socket from '../config/Socket.js'
-import Dasb from '../config/PushController'
+
 
 
 
@@ -34,7 +34,6 @@ export default class DetailsScreen extends React.Component {
     }
     return(  
      <ScrollView>
-      <Dasb />
       <SearchBar
         lightTheme
         searchIcon={true}
