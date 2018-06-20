@@ -1,7 +1,13 @@
 import config from './config.js'
 import SocketIOClient from 'socket.io-client';
 import { userList,jsuser,conversation } from '../store/Store.js'
-import { autorun } from 'mobx'
+// import pushController from './PushController'
+import { PushNotificationIOS, AppState,AsyncStorage } from 'react-native'
+import PushNotification from 'react-native-push-notification';
+import { toJS } from 'mobx'
+
+
+
 
 
 
@@ -25,9 +31,30 @@ class ReceivedMessage {
 
 class Socket  {
     constructor() {
-        this.socket=SocketIOClient(config.socketServer.server);
+        AppState.addEventListener('change',this._saveDataToLocalStore)
+
+        this.socket=SocketIOClient(config.socketServer.server,{
+            transports:['websocket']
+        });
         // console.log(jsuser)
+       
+
         this.socket.on('connect',()=>{
+            let cid=jsuser.getUser().user_id
+            try{
+                const value =  AsyncStorage.getItem('StoreUser',(err,result)=>{
+                if (value !==null)
+                    cid=value.user_id
+                })      
+            }catch(error){
+                console.log(error)
+            }
+            
+            if(cid){
+                jsuser.setUserClient(cid)
+            }
+            console.log(cid)
+            console.log(jsuser.getUser().client)
             this.socket.emit('authentication',jsuser.getUser())
         })
         this.socket.on('generate_id',(data)=>{
@@ -40,6 +67,7 @@ class Socket  {
         this.socket.on('my_full_broadcast_event',(data)=>{
             userList.setUserList(data.users)
             // console.log('insocket:'+userList)
+          
         })
 
         this.socket.on('return_conversations',(data)=>{
@@ -60,7 +88,11 @@ class Socket  {
             msg.setID(x.mid)
             msg.setUser(x.sender,x.sender_username,x.sender_img)
             conversation.addMessage(msg)    
-            console.log(conversation.getConversation())      
+            console.log(conversation.getConversation())   
+            PushNotification.localNotificationSchedule({
+                message: "My Notification Message", // (required)
+                date: new Date(Date.now() + (20 * 1000)) // in 60 secs
+              });
         })
     }
     
@@ -76,6 +108,30 @@ class Socket  {
         msg.setUser(message.user._id,message.user.name,message.user.avatar)
         conversation.addMessage(msg)
         console.log(conversation.getConversation())
+    }
+
+    _handleAppStateChange = (appState) => {
+        if (Platform.OS === 'ios' && appState === 'inactive' ) {
+            this.socket.close();
+            this._saveDataToLocalStore();
+        }
+
+        if (Platform.OS === 'android' && appState === 'background') {
+            this.socket.close();
+            this._saveDataToLocalStore();
+        }
+
+        if (appState === 'active') {
+            this.socket.open();
+        }
+    }
+
+    _saveDataToLocalStore = async () => {
+        try{
+            await AsyncStorage.setItem('StoreUser', JSON.stringify(toJS(jsuser)));
+        }catch(error){
+            console.log(error)
+        }
     }
 }
 

@@ -1,22 +1,28 @@
 import {observable, action, computed, autorun} from 'mobx'
-import { Platform } from 'react-native'
+import { Platform,AsyncStorage, SegmentedControlIOSComponent } from 'react-native'
 
 
 class ObservableUser {
   @observable jsuser
   constructor(){
-    this.jsuser={
-      username:'',
-      client:null,
-      user_id:null,
-      isUser:false,
-      img:'',
-      platform:Platform.OS
+      this.jsuser={
+        username:'',
+        client:null,
+        user_id:null,
+        isUser:false,
+        img:'',
+        platform:Platform.OS
     };
-  }
+  }   
+  
   
   getUser(){
     return this.jsuser
+  }
+
+  @action.bound
+  setUserClient(value){
+    this.jsuser.client=value  
   }
 
   @action.bound
@@ -24,6 +30,7 @@ class ObservableUser {
     this.jsuser.user_id=id
     this.jsuser.username=username
     this.jsuser.img=img
+    this.client=id
   }
 }
 
