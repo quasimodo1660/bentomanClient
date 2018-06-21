@@ -14,11 +14,19 @@ const configure = () =>{
           // required on iOS only
           notification.finish(PushNotificationIOS.FetchResult.NoData);
           // if(notification.foreground){
-          //   PushNotification.localNotification({
-          //     title:notification.title,
-          //     message:notification.message
+          //   // PushNotification.localNotification({
+          //   //   title:notification.title,
+          //   //   message:notification.message
+          //   PushNotificationIOS.presentLocalNotification({
+          //     alertBody:notification.message,
           //   })
-          //}
+          PushNotification.localNotificationSchedule({
+            title: 'Hello',
+            message: notification.message,
+            date: new Date(Date.now() + (2 * 1000)), // in 10 secs
+            foreground: true,
+          }) 
+          // }
           
           
         },

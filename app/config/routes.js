@@ -1,10 +1,12 @@
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator,createSwitchNavigator } from 'react-navigation';
 import HomeScreen from '../screens/Home'
 import Third from '../screens/Third'
 import Modal from '../screens/Modal'
 import DetailsScreen from '../screens/Details'
+import AuthLoadingScreen from '../screens/AuthLoading'
+import SignInScreen from '../screens/SignIn'
 import ChatScreen from '../screens/Chat.js'
 import {userList,jsuser} from '../store/Store.js'
 
@@ -53,7 +55,7 @@ const MainRootStack = createStackNavigator(
   }
 );
 
-const NavBottom = createBottomTabNavigator(
+const AppStack = createBottomTabNavigator(
   {
     Home:MainRootStack,
     Massaging:DetailsStack,
@@ -86,4 +88,20 @@ const NavBottom = createBottomTabNavigator(
   }
 )
 
-export default NavBottom;
+const AuthStack = createStackNavigator({SignIn:SignInScreen})
+
+
+
+
+const RootNav = createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'AuthLoading',
+  }
+)
+
+export default RootNav
