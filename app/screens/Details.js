@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet,Button, Image,ScrollView,Text, } from 'react-native';
+import { StyleSheet,Button, AsyncStorage,Image,ScrollView,Text, } from 'react-native';
 import {jsuser, userList} from '../store/Store.js'
 import { observer } from 'mobx-react/native'
 import { SearchBar, ListItem, } from 'react-native-elements'
@@ -20,10 +20,12 @@ export default class DetailsScreen extends React.Component {
     
     };  
   } 
-  componentDidMount(){
-    
-  }
   
+  _signOutAsync = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Auth');
+  };
+
  
   render() {
     const goToChatWindow = (data)=>{
@@ -56,6 +58,10 @@ export default class DetailsScreen extends React.Component {
             }          
           })
         }
+        <Button
+            title="Sign Out"
+            onPress={this._signOutAsync}
+        />
     </ScrollView>
     );
   }

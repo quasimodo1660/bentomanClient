@@ -1,6 +1,6 @@
 import React from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createBottomTabNavigator, createStackNavigator,createSwitchNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator,createSwitchNavigator,createDrawerNavigator } from 'react-navigation';
 import HomeScreen from '../screens/Home'
 import Third from '../screens/Third'
 import Modal from '../screens/Modal'
@@ -8,7 +8,7 @@ import DetailsScreen from '../screens/Details'
 import AuthLoadingScreen from '../screens/AuthLoading'
 import SignInScreen from '../screens/SignIn'
 import ChatScreen from '../screens/Chat.js'
-import {userList,jsuser} from '../store/Store.js'
+import SideNav from '../screens/Drawer'
 
 
 const MainStack = createStackNavigator(
@@ -36,6 +36,7 @@ const MainStack = createStackNavigator(
 const DetailsStack = createStackNavigator({
   Datails:DetailsScreen,
   ChatWindow:ChatScreen,
+  sideBar:SideNav
 })
 
 
@@ -81,12 +82,28 @@ const AppStack = createBottomTabNavigator(
       activeTintColor: '#fb6e1c',
       inactiveTintColor: 'gray',
     },
-    passProps:{
-      users:userList,
-      user:jsuser
-    }
   }
 )
+
+// const AppStack = createDrawerNavigator(
+//   {
+//     Tabs:{
+//       screen:NavTab
+//     }
+
+//   },
+//   {
+//     headerMode: 'none',
+//     navigationOptions: {
+//       header: (props) => ({
+//           left: <Ionicons name='os-aperture-outline' />
+//       }),
+//   },
+//   } 
+// )
+
+
+
 
 const AuthStack = createStackNavigator({SignIn:SignInScreen})
 
