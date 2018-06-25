@@ -1,7 +1,7 @@
 import config from './config.js'
 import SocketIOClient from 'socket.io-client';
 import { userList,jsuser,conversation } from '../store/Store.js'
-import { AppState,AsyncStorage,Platform } from 'react-native'
+import { AppState,AsyncStorage,Platform,Vibration } from 'react-native'
 import { toJS } from 'mobx'
 import { pushNotifications } from '../services';
 
@@ -49,6 +49,7 @@ class Socket  {
     
         this.socket.on('my_full_broadcast_event',(data)=>{
             userList.setUserList(data.users)
+            // Vibration.vibrate()
             // console.log('insocket:'+userList)
           
         })
@@ -70,7 +71,8 @@ class Socket  {
             msg.setID(x.mid)
             msg.setUser(x.sender,x.sender_username,x.sender_img)
             conversation.addMessage(msg)    
-            pushNotifications.localNotification(x.sender_username+' send you a message',x.content)
+            Vibration.vibrate()
+            // pushNotifications.localNotification(x.sender_username+' send you a message',x.content)
         })
     }
     
