@@ -13,13 +13,15 @@ import config from '../config/config'
 import axios from 'axios'
 import { toJS } from 'mobx'
 import { SocialIcon,Text,Divider } from 'react-native-elements'
+import {jsuser} from '../store/Store'
+import socket from '../config/Socket'
 
 
 
 export default class SignInScreen extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log(config)
     this._handleOpenURL = this._handleOpenURL.bind(this);
   } 
 
@@ -50,16 +52,30 @@ export default class SignInScreen extends React.Component {
     this.openURL(config.githubLogin.url)
   }
 
+  loginWithGoogle = () =>{
+    this.openURL(config.googleLogin.url)
+  }
+
+  loginWithFacebook = () =>{
+    this.openURL(config.facebookLogin.url)
+  }
+
+
+
   _handleOpenURL(event) {
-    console.log(this)
-    console.log(event.url.match(/\d+/g)[0]);
-    axios.get('http://127.0.0.1:8000/accounts/renderUser/'+event.url.match(/\d+/g)[0]).then(res=>{
+    // console.log(this)
+    // console.log(event.url.match(/\d+/g)[0]);
+    axios.get(config.bentoman.server+'/accounts/renderUser/'+event.url.match(/\d+/g)[0]).then(res=>{
       console.log(res)
       AsyncStorage.setItem('StoreUser', JSON.stringify(toJS(res.data)));
       if (Platform.OS === 'ios') {
         SafariView.dismiss();
-      }
+      }  
+      jsuser.InitUser(res.data.user_id,res.data.user_name,res.data.img)
+      socket._openConnection()
     })
+    console.log(jsuser.getUser())
+    
     this.props.navigation.navigate('App')
   }
   
@@ -81,11 +97,13 @@ export default class SignInScreen extends React.Component {
             title='Sign In With Facebook'
             button
             type='facebook'
+            onPress={this.loginWithFacebook}
           />
           <SocialIcon
             title='Sign In With Google'
             button
             type='google-plus-official'
+            onPress={this.loginWithGoogle}
           />
           <SocialIcon
             title='Sign In With Github'

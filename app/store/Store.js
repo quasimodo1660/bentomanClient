@@ -11,7 +11,9 @@ class ObservableUser {
         user_id:null,
         isUser:false,
         img:'',
-        platform:Platform.OS
+        platform:Platform.OS,
+        latestMsg:0,
+        deviceToken:''
     };
   }   
   
@@ -30,8 +32,20 @@ class ObservableUser {
     this.jsuser.user_id=id
     this.jsuser.username=username
     this.jsuser.img=img
-    this.client=id
+    this.jsuser.client=id
+    this.jsuser.isUser=true
   }
+
+  @action.bound
+  RMsg(){
+    this.jsuser.latestMsg=this.jsuser.atestMsg++
+  }
+  
+  @action.bound
+  setLetestMsgtoZero(){
+    this.jsuser.latestMsg=0
+  }
+
 }
 
 

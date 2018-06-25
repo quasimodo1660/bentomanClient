@@ -9,6 +9,7 @@ import AuthLoadingScreen from '../screens/AuthLoading'
 import SignInScreen from '../screens/SignIn'
 import ChatScreen from '../screens/Chat.js'
 import SideNav from '../screens/Drawer'
+import ProfileScreen from '../screens/Profile'
 
 
 const MainStack = createStackNavigator(
@@ -56,10 +57,17 @@ const MainRootStack = createStackNavigator(
   }
 );
 
+const ProfileStack = createStackNavigator(
+  { Profile:ProfileScreen}
+)
+
+
+
 const AppStack = createBottomTabNavigator(
   {
     Home:MainRootStack,
     Massaging:DetailsStack,
+    Profile:ProfileStack
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -72,7 +80,9 @@ const AppStack = createBottomTabNavigator(
         } else if (routeName === 'Massaging') {
           iconName = `ios-chatbubbles${focused ? '' : '-outline'}`;
         }
-
+        else{
+          iconName = `ios-person${focused ? '' : '-outline'}`;
+        }
         // You can return any component that you like here! We usually use an
         // icon component from react-native-vector-icons
         return <Ionicons name={iconName} size={25} color={tintColor} />;

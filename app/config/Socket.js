@@ -1,7 +1,7 @@
 import config from './config.js'
 import SocketIOClient from 'socket.io-client';
 import { userList,jsuser,conversation } from '../store/Store.js'
-import { AppState,AsyncStorage } from 'react-native'
+import { AppState,AsyncStorage,Platform } from 'react-native'
 import { toJS } from 'mobx'
 import { pushNotifications } from '../services';
 
@@ -30,31 +30,14 @@ class ReceivedMessage {
 class Socket  {
     constructor() {
         
-        AppState.addEventListener('change',this._saveDataToLocalStore)
+        AppState.addEventListener('change',this._handleAppStateChange)
 
         this.socket=SocketIOClient(config.socketServer.server,{
             transports:['websocket']
         });
         // console.log(jsuser)
-       
-
         this.socket.on('connect',()=>{
-            let cid=jsuser.getUser().user_id
-            try{
-                const value =  AsyncStorage.getItem('StoreUser',(err,result)=>{
-                if (value !==null)
-                    cid=value.user_id
-                })      
-            }catch(error){
-                console.log(error)
-            }
-            
-            if(cid){
-                jsuser.setUserClient(cid)
-            }
-            // console.log(cid)
-            // console.log(jsuser.getUser().client)
-            this.socket.emit('authentication',jsuser.getUser())
+            // this.socket.emit('authentication',jsuser.getUser())
         })
 
         this.socket.on('generate_id',(data)=>{
@@ -91,6 +74,10 @@ class Socket  {
         })
     }
     
+    // _sendAuthentication(){
+        
+    // }
+
     loadConversation=(data)=>{
         this.socket.emit('load_conversation',data)
     }
@@ -108,26 +95,35 @@ class Socket  {
     _handleAppStateChange = (appState) => {
         if (Platform.OS === 'ios' && appState === 'inactive' ) {
             this.socket.close();
-            this._saveDataToLocalStore();
+            // this._saveDataToLocalStore();
         }
 
         if (Platform.OS === 'android' && appState === 'background') {
             this.socket.close();
-            this._saveDataToLocalStore();
+            // this._saveDataToLocalStore();
         }
 
         if (appState === 'active') {
-            this.socket.open();
+            this._openConnection();
         }
     }
 
-    _saveDataToLocalStore = async () => {
-        try{
-            await AsyncStorage.setItem('StoreUser', JSON.stringify(toJS(jsuser)));
-        }catch(error){
-            console.log(error)
-        }
+    _closeConnection(){
+        this.socket.close()
     }
+
+    _openConnection(){
+        console.log(jsuser.getUser())
+        this.socket.open()
+        this.socket.emit('authentication',jsuser.getUser())
+    }
+    // _saveDataToLocalStore = async () => {
+    //     try{
+    //         await AsyncStorage.setItem('StoreUser', JSON.stringify(toJS(jsuser)));
+    //     }catch(error){
+    //         console.log(error)
+    //     }
+    // }
 }
 
 const socket = new Socket()
