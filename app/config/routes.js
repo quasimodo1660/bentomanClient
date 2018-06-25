@@ -105,7 +105,7 @@ const AppStack = createBottomTabNavigator(
 
 
 
-const AuthStack = createStackNavigator({SignIn:SignInScreen})
+// const AuthStack = createStackNavigator({SignIn:SignInScreen})
 
 
 
@@ -114,7 +114,7 @@ const RootNav = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     App: AppStack,
-    Auth: AuthStack,
+    Auth: SignInScreen,
   },
   {
     initialRouteName: 'AuthLoading',
