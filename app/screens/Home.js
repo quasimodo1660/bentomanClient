@@ -1,45 +1,48 @@
 import React from 'react';
-import { ActivityIndicator,Image,Button, View, Text } from 'react-native';
-import LogoTitle from '../components/Logo'
+import { ActivityIndicator,View, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Masonry from 'react-native-masonry';
 import FastImage from 'react-native-fast-image';
+import { observer } from 'mobx-react/native'
+import {bentoList} from '../store/Store'
+import {getBentoList} from '../services/HttpDelegate'
 
+@observer
 export default class HomeScreen extends React.Component {
   constructor(props){
     super(props);
     this.state={isLoading:true}
+    this.getBL=getBentoList
   }
 
-  static navigationOptions = {
-    title: 'BENTOMAN',    
-    // headerLeft: <LogoTitle />,
-    // headerRight:(
-    //   <Ionicons
-    //     name='ios-add-circle' 
-    //     size={25}
-    //     color='orange'
-    //     onPress = {()=> this.props.navigation.navigate('Third')}
-    //   />
-    // ),
+  static navigationOptions = ({navigation}) => {
+    return{
+      title: 'BENTOMAN',    
+      // headerLeft: <LogoTitle />,
+      headerRight:(
+        <Ionicons
+          name='ios-add' 
+          size={30}
+          //color='orange'
+          style={{paddingRight:10}}
+          onPress = {()=>navigation.navigate('AddNew')}
+        />
+      ),
+    }
   };
 
   componentDidMount(){
-    return fetch('http://bentoman.yubinwang.com/api/lunchbox')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        // console.log(responseJson)
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson,
-        });
-
-      })
-      .catch((error) =>{
-        console.error(error);
-      });
+    this.getBL().then(
+      this.setState({isLoading:false})
+    ).catch((error)=>{
+      console.log(error)
+    })  
   }
   
+  componentWillUnmount(){
+    this.getBL=null
+    this.setState({isLoading:true})
+  }
 
   render() {
     if(this.state.isLoading){
@@ -51,18 +54,18 @@ export default class HomeScreen extends React.Component {
     }
     
     let data=[];
-    for(let x=0;x<this.state.dataSource.length;x++){
+    bentoList.getBentoList().map((b,i)=>{
       var item={}
       item['data']={}
-      item['key']="image"+x
-      item.data['caption']=this.state.dataSource[x].title
-      item.data['url']=this.state.dataSource[x].url
-      item['uri']=this.state.dataSource[x].images[0].image
-      // console.log(item)
+      item['key']="image"+i
+      item.data['caption']=b.title
+      item.data['url']=b.url
+      item['uri']=b.images[0].image
+
       item.renderFooter=(data)=>{
         // console.log(self)
         return (
-          <View key={'brick-footer'+x} style={{backgroundColor: '#fafafa', padding: 5, paddingRight: 9, paddingLeft: 9,borderRadius:10}}>
+          <View key={'brick-footer'+i} style={{backgroundColor: '#fafafa', padding: 5, paddingRight: 9, paddingLeft: 9,borderRadius:10}}>
             <Text style={{lineHeight: 20, fontSize: 16}}>{data.caption}</Text>
           </View>
         )
@@ -74,7 +77,8 @@ export default class HomeScreen extends React.Component {
         })
       }
       data.push(item)
-    }
+    })
+
     return (
       <View style={{ flex: 1, flexGrow: 10, padding:5,paddingTop:10 }}>
           <Masonry

@@ -10,13 +10,14 @@ import SignInScreen from '../screens/SignIn'
 import ChatScreen from '../screens/Chat.js'
 import SideNav from '../screens/Drawer'
 import ProfileScreen from '../screens/Profile'
-
+import AddBento from '../screens/AddOne'
 
 const MainStack = createStackNavigator(
     {
       Home: HomeScreen,
       // Details: DetailsScreen,
-      Third:Third,
+      Third: Third,
+      AddNew: AddBento,
     },
     {
       initialRouteName: 'Home',

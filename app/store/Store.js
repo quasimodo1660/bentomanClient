@@ -96,6 +96,26 @@ class ObservableConversation {
   }
 }
 
+class ObservableBentoList {
+  @observable bentoList
+  constructor(){
+    this.bentoList=[]
+  } 
+
+  getBentoList(){
+    return this.bentoList
+  }
+
+  @action.bound
+  setBentoList(data){
+    this.bentoList=data
+  }
+}
+
+
+
+
+
 
 
 const jsuser = new ObservableUser()
@@ -106,3 +126,6 @@ export {userList}
 
 const conversation = new ObservableConversation()
 export {conversation}
+
+const bentoList = new ObservableBentoList()
+export {bentoList}

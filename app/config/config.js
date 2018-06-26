@@ -14,6 +14,9 @@ const config ={
     },
     'facebookLogin':{
         url:'http://bentoman.yubinwang.com/accounts/facebook/login'
+    },
+    'getBentoList':{
+        url:'http://bentoman.yubinwang.com/api/lunchbox'
     }
 }
 
