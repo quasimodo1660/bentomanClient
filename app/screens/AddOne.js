@@ -9,10 +9,22 @@ import { Icon } from 'react-native-elements'
 
 
 
+
 export default class AddBento extends React.Component {
   constructor(props){
     super(props)
-    this.state = { isDateTimePickerVisible: false,};
+    this.state = { 
+        isDateTimePickerVisible: false,
+        title:'',
+        description:'',
+        address:'',
+        lon:'',
+        lat:'',
+        offtime:'',
+        file:null,
+        tags:[]
+        
+    };
   }
   
   static navigationOptions = ({navigation}) => {
@@ -31,19 +43,21 @@ export default class AddBento extends React.Component {
   };
 
   render() {
+    // let {title} = this.state.title
+    // let {des}= this.state.description
     return (
       <ScrollView>
         <View style={styles.container}>
         <TextField
         label='Title'
         tintColor='#FE8050'
-        //placeholder='What is the name of the bento?'
+        onChangeText={(title)=>this.setState({title:title})}
         />
         <TextField
         label='Description'
         tintColor='#FE8050'
         multiline={true}
-        //placeholder='Any description for the bento?'
+        onChangeText={(des)=>this.setState({description:des})}
         />
         </View>
       
@@ -93,14 +107,28 @@ export default class AddBento extends React.Component {
           onConfirm={this._handleDatePicked}
           onCancel={this._hideDateTimePicker}
         />
-        </View>
-        <View style={styles.imageHolder}>
-         <Icon
+         <Button
+            icon={
+            <Icon
             raised
-            name='heartbeat'
-            type='font-awesome'
-            color='#f50'
-            onPress={() => console.log('hello')} />
+                name='heartbeat'
+                type='font-awesome'
+              size={15}
+              color='white'
+            />
+            }
+            containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
+            onPress={this._showDateTimePicker}
+            buttonStyle={{backgroundColor:'#FE8050'}}
+            title='Upload Images'
+            titleStyle={{alignSelf:'flex-start'}}
+        />
+        <Button
+            containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
+            onPress={()=>console.log(this.state)}
+            title='check this state'
+            titleStyle={{alignSelf:'flex-start'}}
+        />
         </View>
       </ScrollView>
     );
