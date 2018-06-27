@@ -5,7 +5,10 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Divider,Button } from 'react-native-elements'
 import { Icon } from 'react-native-elements'
-
+import Moment from 'moment';
+import config from '../config/config'
+import axios from 'axios'
+import {jsuser} from '../store/Store'
 
 
 
@@ -18,12 +21,12 @@ export default class AddBento extends React.Component {
         title:'',
         description:'',
         address:'',
-        lon:'',
+        lng:'',
         lat:'',
-        offtime:'',
+        offertime:'',
         file:null,
-        tags:[]
-        
+        tags:[],
+        displayTime:''
     };
   }
   
@@ -39,8 +42,31 @@ export default class AddBento extends React.Component {
 
   _handleDatePicked = (date) => {
     console.log('A date has been picked: ', date);
+    this.setState({offertime:Moment(date).format('YYYY-MM-DD')})
+    this.setState({displayTime:'Pick up @'+Moment(date).format('ddd,MMM DD YYYY')})
     this._hideDateTimePicker();
   };
+
+  _postDataToServer = async() => {
+    try{
+        axios.post(config.uploadBento.url,{
+            user:jsuser.getUser().user_id,
+            title:this.state.title,
+            des:this.state.description,
+            loc:this.state.address,
+            offertime:this.state.offertime,
+            lng:this.state.lng,
+            lat:this.state.lat,
+            foo:'bar'
+            }).then(function (response) {
+            console.log(response);
+            })
+      }catch(error) {
+        console.log(error);
+        };
+  }
+
+
 
   render() {
     // let {title} = this.state.title
@@ -68,6 +94,12 @@ export default class AddBento extends React.Component {
             autoFocus={false}
             returnKeyType={'default'}
             fetchDetails={true}
+            onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+                console.log(data, details);
+                this.setState({address:data.description})
+                this.setState({lng:details.geometry.location.lng})
+                this.setState({lat:details.geometry.location.lat})
+            }}
             styles={{
                 textInputContainer: {          
                 backgroundColor: 'rgba(0,0,0,0)',
@@ -95,6 +127,7 @@ export default class AddBento extends React.Component {
             }}           
         />
         <View style={styles.container}>
+        <Text style={{color:'#5d5d5d',paddingTop:10,fontSize: 16,paddingBottom:5}}>{this.state.displayTime}</Text>
          <Button
             containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
             onPress={this._showDateTimePicker}
@@ -125,7 +158,7 @@ export default class AddBento extends React.Component {
         />
         <Button
             containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
-            onPress={()=>console.log(this.state)}
+            onPress={this._postDataToServer}
             title='check this state'
             titleStyle={{alignSelf:'flex-start'}}
         />

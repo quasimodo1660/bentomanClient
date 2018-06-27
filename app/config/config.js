@@ -17,6 +17,9 @@ const config ={
     },
     'getBentoList':{
         url:'http://bentoman.yubinwang.com/api/lunchbox'
+    },
+    'uploadBento':{
+        url:'http://127.0.0.1:8000/lunchbox/mobileUpload/'
     }
 }
 
