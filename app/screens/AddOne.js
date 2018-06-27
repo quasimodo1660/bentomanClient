@@ -143,15 +143,14 @@ export default class AddBento extends React.Component {
          <Button
             icon={
             <Icon
-            raised
                 name='heartbeat'
                 type='font-awesome'
-              size={15}
-              color='white'
+                //size={15}
+                color='white'
             />
             }
             containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
-            onPress={this._showDateTimePicker}
+            onPress={()=>this.props.navigation.navigate('MyModal')}
             buttonStyle={{backgroundColor:'#FE8050'}}
             title='Upload Images'
             titleStyle={{alignSelf:'flex-start'}}

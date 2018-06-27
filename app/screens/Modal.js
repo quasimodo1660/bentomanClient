@@ -1,10 +1,12 @@
 import React from 'react';
 import { Dimensions,
+    CameraRoll,
     StyleSheet,
     Text,
     TouchableOpacity,
     View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import { Icon } from 'react-native-elements'
 
 const PendingView = () => (
   <View
@@ -34,9 +36,26 @@ export default class AddBento extends React.Component {
             if (status !== 'READY') return <PendingView />;
             return (
               <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                  <Text style={{ fontSize: 14 }}> SNAP </Text>
-                </TouchableOpacity>
+                <View style={styles.iconView}>
+                  <Icon style={styles.capture}
+                     raised
+                     name='chevron-down'
+                     type='font-awesome'
+                     color='white'
+                     containerStyle={{backgroundColor:'red'}}
+                    onPress={() => this.props.navigation.goBack()}
+                  />
+                </View>
+                <View style={styles.iconView}>
+                  <Icon 
+                     raised
+                     name='camera'
+                     type='font-awesome'
+                     containerStyle={{backgroundColor:'green'}}
+                     color='white'
+                     onPress={() => this.takePicture(camera)}
+                  />
+                </View>
               </View>
             );
           }}
@@ -49,6 +68,7 @@ export default class AddBento extends React.Component {
     const options = { quality: 0.5, base64: true };
     const data = await camera.takePictureAsync(options);
     //  eslint-disable-next-line
+    CameraRoll.saveToCameraRoll(data.uri)
     console.log(data.uri);
   }
 }
@@ -64,13 +84,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20,
+
+  iconView: {
+    width:'50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom:10
   },
 });
