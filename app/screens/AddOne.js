@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField } from 'react-native-material-textfield';
-import { DatePickerIOS,TouchableOpacity,StyleSheet,Text,ScrollView,View } from 'react-native';
+import { DatePickerIOS,TouchableOpacity,StyleSheet,Text,ScrollView,View,Image } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { Divider,Button } from 'react-native-elements'
@@ -150,11 +150,16 @@ export default class AddBento extends React.Component {
             />
             }
             containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
-            onPress={()=>this.props.navigation.navigate('MyModal')}
+            onPress={()=>this.props.navigation.navigate('MyModal',{
+                onGoBack:(data)=> console.log(data)
+            })}
             buttonStyle={{backgroundColor:'#FE8050'}}
             title='Upload Images'
             titleStyle={{alignSelf:'flex-start'}}
         />
+        <Image 
+            source={{uri:'assets-library://asset/asset.JPG?id=042FCE86-3250-4233-ACA8-FB76B3366C87&ext=JPG'}}
+            style={{width:100,height:300}}/>
         <Button
             containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
             onPress={this._postDataToServer}

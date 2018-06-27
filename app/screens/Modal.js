@@ -22,6 +22,11 @@ const PendingView = () => (
 );
 
 export default class AddBento extends React.Component {
+  constructor(props){
+    super(props)
+    this.takePicture=this.takePicture.bind(this)
+    console.log(this.props.navigation.state.params)
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -68,8 +73,14 @@ export default class AddBento extends React.Component {
     const options = { quality: 0.5, base64: true };
     const data = await camera.takePictureAsync(options);
     //  eslint-disable-next-line
-    CameraRoll.saveToCameraRoll(data.uri)
     console.log(data.uri);
+    CameraRoll.saveToCameraRoll(data.uri).then((res)=>{
+      console.log(res)
+      this.props.navigation.state.params.onGoBack(res);
+      this.props.navigation.goBack()
+    })
+    
+   
   }
 }
 
