@@ -9,6 +9,7 @@ import Moment from 'moment';
 import config from '../config/config'
 import axios from 'axios'
 import {jsuser} from '../store/Store'
+import ResponsiveImage from 'react-native-responsive-image';
 
 
 
@@ -24,7 +25,7 @@ export default class AddBento extends React.Component {
         lng:'',
         lat:'',
         offertime:'',
-        file:null,
+        file:'',
         tags:[],
         displayTime:''
     };
@@ -48,16 +49,19 @@ export default class AddBento extends React.Component {
   };
 
   _postDataToServer = async() => {
+    const formData= new FormData();
+        formData.append('user',jsuser.getUser().user_id)
+        formData.append('photo',{
+            uri:this.state.file,
+            type:'file',
+            name:this.state.title
+        })
     try{
-        axios.post(config.uploadBento.url,{
-            user:jsuser.getUser().user_id,
-            title:this.state.title,
-            des:this.state.description,
-            loc:this.state.address,
-            offertime:this.state.offertime,
-            lng:this.state.lng,
-            lat:this.state.lat,
-            foo:'bar'
+        axios.post(config.uploadBento.url,formData,{
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'multipart/form-data',
+            }
             }).then(function (response) {
             console.log(response);
             })
@@ -69,8 +73,26 @@ export default class AddBento extends React.Component {
 
 
   render() {
-    // let {title} = this.state.title
-    // let {des}= this.state.description
+    if(this.state.file){
+        uploadImage=(
+            <ResponsiveImage 
+                source={{uri:this.state.file}}
+                //style={styles.canvas}
+                initWidth="250" 
+                initHeight="444"
+            />
+        )
+    }
+    else{
+        uploadImage=(
+            <Icon 
+            name='camera'
+            type='font-awesome'
+            color='#FE8050'
+            size={100}
+         />
+        )
+    }
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -140,6 +162,9 @@ export default class AddBento extends React.Component {
           onConfirm={this._handleDatePicked}
           onCancel={this._hideDateTimePicker}
         />
+         <View style={styles.imageHolder}>
+            {uploadImage}
+        </View>
          <Button
             icon={
             <Icon
@@ -151,15 +176,13 @@ export default class AddBento extends React.Component {
             }
             containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
             onPress={()=>this.props.navigation.navigate('MyModal',{
-                onGoBack:(data)=> console.log(data)
+                onGoBack:(data)=> this.setState({file:data})
             })}
             buttonStyle={{backgroundColor:'#FE8050'}}
             title='Upload Images'
             titleStyle={{alignSelf:'flex-start'}}
         />
-        <Image 
-            source={{uri:'assets-library://asset/asset.JPG?id=042FCE86-3250-4233-ACA8-FB76B3366C87&ext=JPG'}}
-            style={{width:100,height:300}}/>
+       
         <Button
             containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
             onPress={this._postDataToServer}
@@ -182,14 +205,25 @@ const styles = StyleSheet.create({
     //backgroundColor: 'black',
   },
   imageHolder:{
-    flex: 1,
-    // flexDirection: 'row',
-    paddingTop:5,
-    paddingLeft:15,
-    paddingRight:15,
-    borderWidth: 1,
-    borderColor: '#F44336',
+    flexGrow:1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+    backgroundColor: '#F5FCFF',
+    flexDirection: 'row',
+    //position: 'relative',
+    paddingTop:25,
+    paddingLeft:15,
+    paddingRight:15,
+    paddingBottom:25
+  },
+  canvas: {
+    //position: 'absolute',
+    resizeMode:'contain',
+    height:250,
+    flexDirection:'row',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 })

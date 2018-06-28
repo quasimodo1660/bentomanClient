@@ -25,7 +25,6 @@ export default class AddBento extends React.Component {
   constructor(props){
     super(props)
     this.takePicture=this.takePicture.bind(this)
-    console.log(this.props.navigation.state.params)
   }
   render() {
     return (
@@ -70,7 +69,7 @@ export default class AddBento extends React.Component {
   }
 
   takePicture = async function(camera) {
-    const options = { quality: 0.5, base64: true };
+    const options = { quality: 0.5, base64: true,forceUpOrientation:true };
     const data = await camera.takePictureAsync(options);
     //  eslint-disable-next-line
     console.log(data.uri);
