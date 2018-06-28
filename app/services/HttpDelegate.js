@@ -1,4 +1,4 @@
-import {bentoList} from '../store/Store'
+import {bentoList,tagList} from '../store/Store'
 import config from '../config/config'
 
 
@@ -14,7 +14,18 @@ getBentoList=async()=>{
         });
 }
 
+getTagList=async()=>{
+    await fetch(config.getTags.url)
+        .then((response) => response.json())
+        .then((responseJson) => {
+            console.log('tags')
+            tagList.setTagList(responseJson.tags)
+        })
+        .catch((error) =>{
+            console.error(error);
+        });
+}
 
 
 
-export {getBentoList}
+export {getBentoList,getTagList}

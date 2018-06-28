@@ -20,6 +20,9 @@ const config ={
     },
     'uploadBento':{
         url:'http://127.0.0.1:8000/lunchbox/mobileUpload/'
+    },
+    'getTags':{
+        url:'http://127.0.0.1:8000/api/category/4/'
     }
 }
 

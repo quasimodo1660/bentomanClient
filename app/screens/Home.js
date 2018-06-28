@@ -5,7 +5,7 @@ import Masonry from 'react-native-masonry';
 import FastImage from 'react-native-fast-image';
 import { observer } from 'mobx-react/native'
 import {bentoList} from '../store/Store'
-import {getBentoList} from '../services/HttpDelegate'
+import {getBentoList,getTagList} from '../services/HttpDelegate'
 
 @observer
 export default class HomeScreen extends React.Component {
@@ -13,6 +13,7 @@ export default class HomeScreen extends React.Component {
     super(props);
     this.state={isLoading:true}
     this.getBL=getBentoList
+    this.getTags=getTagList
   }
 
   static navigationOptions = ({navigation}) => {
@@ -37,6 +38,7 @@ export default class HomeScreen extends React.Component {
     ).catch((error)=>{
       console.log(error)
     })  
+    this.getTags()
   }
   
   componentWillUnmount(){

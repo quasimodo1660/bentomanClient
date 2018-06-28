@@ -1,5 +1,5 @@
 import {observable, action, computed, autorun} from 'mobx'
-import { Platform,AsyncStorage, SegmentedControlIOSComponent } from 'react-native'
+import { Platform,AsyncStorage, SegmentedControlIOSComponent, TouchableHighlightBase } from 'react-native'
 
 
 class ObservableUser {
@@ -113,7 +113,19 @@ class ObservableBentoList {
 }
 
 
-
+class ObservableTag {
+  @observable TagList
+  constructor(){
+    this.TagList=[]
+  }
+  getTagList(){
+    return this.TagList
+  }
+  @action.bound
+  setTagList(data){
+    this.TagList=data
+  }
+}
 
 
 
@@ -129,3 +141,6 @@ export {conversation}
 
 const bentoList = new ObservableBentoList()
 export {bentoList}
+
+const tagList = new ObservableTag()
+export {tagList}

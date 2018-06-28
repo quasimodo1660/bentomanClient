@@ -8,8 +8,9 @@ import { Icon } from 'react-native-elements'
 import Moment from 'moment';
 import config from '../config/config'
 import axios from 'axios'
-import {jsuser} from '../store/Store'
+import {jsuser,tagList} from '../store/Store'
 import ResponsiveImage from 'react-native-responsive-image';
+import { TagSelect } from 'react-native-tag-select';
 
 
 
@@ -26,7 +27,6 @@ export default class AddBento extends React.Component {
         lat:'',
         offertime:'',
         file:'',
-        tags:[],
         displayTime:''
     };
   }
@@ -49,13 +49,21 @@ export default class AddBento extends React.Component {
   };
 
   _postDataToServer = async() => {
+    //console.log(JSON.stringify(this.tag.itemsSelected))
     const formData= new FormData();
         formData.append('user',jsuser.getUser().user_id)
+        formData.append('title',this.state.title)
         formData.append('photo',{
             uri:this.state.file,
             type:'file',
             name:this.state.title
         })
+        formData.append('des',this.state.description)
+        formData.append('lng',this.state.lng)
+        formData.append('lat',this.state.lat)
+        formData.append('loc',this.state.address)
+        formData.append('offertime',this.state.offertime)
+        formData.append('tags',JSON.stringify(this.tag.itemsSelected))
     try{
         axios.post(config.uploadBento.url,formData,{
             headers: {
@@ -182,7 +190,20 @@ export default class AddBento extends React.Component {
             title='Upload Images'
             titleStyle={{alignSelf:'flex-start'}}
         />
-       
+        <View style={styles.tagcontainer}>
+       <Text style={styles.labelText}>Ingredient:</Text>
+        <TagSelect
+          data={tagList.getTagList()}
+          ref={(tag) => {
+            this.tag = tag;
+          }}
+          itemStyle={styles.item}
+          itemLabelStyle={styles.label}
+          itemStyleSelected={styles.itemSelected}
+          itemLabelStyleSelected={styles.labelSelected}
+        />
+        </View>
+
         <Button
             containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
             onPress={this._postDataToServer}
@@ -225,5 +246,37 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+  },
+  tagcontainer: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    marginTop: 50,
+    marginLeft: 15,
+  },
+  buttonContainer: {
+    padding: 15,
+  },
+  buttonInner: {
+    marginBottom: 15,
+  },
+  labelText: {
+    color: '#333',
+    fontSize: 15,
+    fontWeight: '500',
+    marginBottom: 15,
+  },
+  item: {
+    borderWidth: 1,
+    borderColor: '#FE8050',    
+    backgroundColor: '#FFF',
+  },
+  label: {
+    color: '#333'
+  },
+  itemSelected: {
+    backgroundColor: '#FE8050',
+  },
+  labelSelected: {
+    color: 'white',
   },
 })
