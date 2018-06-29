@@ -51,11 +51,11 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>localhost</key>
+			<!-- <key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
-			</dict>
+			</dict> -->
 			<key>yubinwang.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>

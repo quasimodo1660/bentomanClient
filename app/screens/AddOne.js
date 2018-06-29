@@ -11,6 +11,7 @@ import axios from 'axios'
 import {jsuser,tagList} from '../store/Store'
 import ResponsiveImage from 'react-native-responsive-image';
 import { TagSelect } from 'react-native-tag-select';
+export {getBentoList} from '../services/HttpDelegate'
 
 
 
@@ -29,6 +30,7 @@ export default class AddBento extends React.Component {
         file:'',
         displayTime:''
     };
+    this._postDataToServer=this._postDataToServer.bind(this)
   }
   
   static navigationOptions = ({navigation}) => {
@@ -50,6 +52,8 @@ export default class AddBento extends React.Component {
 
   _postDataToServer = async() => {
     //console.log(JSON.stringify(this.tag.itemsSelected))
+    const navigation=this.props.navigation
+    const getBL=getBentoList
     const formData= new FormData();
         formData.append('user',jsuser.getUser().user_id)
         formData.append('title',this.state.title)
@@ -71,14 +75,23 @@ export default class AddBento extends React.Component {
                 'Content-Type': 'multipart/form-data',
             }
             }).then(function (response) {
-            console.log(response);
+            console.log(response)
+             if(response.data.success){
+                getBL().then(
+                    navigation.goBack()
+                ).catch((error)=>{
+                    console.log(error)
+                })
+             }
+             else
+                console.log(response.data)
             })
       }catch(error) {
         console.log(error);
         };
   }
 
-
+  
 
   render() {
     if(this.state.file){
@@ -205,10 +218,11 @@ export default class AddBento extends React.Component {
         </View>
 
         <Button
-            containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
+            containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8,}}
             onPress={this._postDataToServer}
-            title='check this state'
+            title='Add'
             titleStyle={{alignSelf:'flex-start'}}
+            buttonStyle={{backgroundColor:'blue'}}
         />
         </View>
       </ScrollView>

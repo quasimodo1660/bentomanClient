@@ -19,10 +19,10 @@ const config ={
         url:'http://bentoman.yubinwang.com/api/lunchbox'
     },
     'uploadBento':{
-        url:'http://127.0.0.1:8000/lunchbox/mobileUpload/'
+        url:'http://bentoman.yubinwang.com/lunchbox/mobileUpload/'
     },
     'getTags':{
-        url:'http://127.0.0.1:8000/api/category/4/'
+        url:'http://bentoman.yubinwang.com/api/category/4/'
     }
 }
 
