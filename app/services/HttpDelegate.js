@@ -6,7 +6,7 @@ getBentoList=async()=>{
     await fetch(config.getBentoList.url)
         .then((response) => response.json())
         .then((responseJson) => {
-            console.log('here')
+            console.log(responseJson)
             bentoList.emptyList()
             bentoList.setBentoList(responseJson)
         })

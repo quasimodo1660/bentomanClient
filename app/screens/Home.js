@@ -1,11 +1,13 @@
 import React from 'react';
-import { ActivityIndicator,View, Text } from 'react-native';
+import { ActivityIndicator,View, Text,RefreshControl } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Masonry from 'react-native-masonry';
 import FastImage from 'react-native-fast-image';
 import { observer } from 'mobx-react/native'
 import {bentoList} from '../store/Store'
 import {getBentoList,getTagList} from '../services/HttpDelegate'
+import {autorun} from 'mobx'
+import AddBento from './AddOne'
 
 @observer
 export default class HomeScreen extends React.Component {
@@ -14,6 +16,7 @@ export default class HomeScreen extends React.Component {
     this.state={isLoading:true}
     this.getBL=getBentoList
     this.getTags=getTagList
+    this.data=[]
   }
 
   static navigationOptions = ({navigation}) => {
@@ -26,13 +29,15 @@ export default class HomeScreen extends React.Component {
           size={30}
           //color='orange'
           style={{paddingRight:10}}
-          onPress = {()=>navigation.navigate('AddNew')}
+          onPress = {()=>navigation.navigate('AddNew',{
+            reload:()=>this.getBL()
+          })}
         />
       ),
     }
   };
 
-  componentDidMount(){
+  componentWillMount(){
     this.getBL().then(
       this.setState({isLoading:false})
     ).catch((error)=>{
@@ -55,7 +60,9 @@ export default class HomeScreen extends React.Component {
       )
     }
     
-    let data=[];
+    
+  
+
     bentoList.getBentoList().map((b,i)=>{
       var item={}
       item['data']={}
@@ -78,15 +85,18 @@ export default class HomeScreen extends React.Component {
           itemTitle:data.caption
         })
       }
-      data.push(item)
+      this.data.push(item)
     })
 
     return (
       <View style={{ flex: 1, flexGrow: 10, padding:5,paddingTop:10 }}>
+          {console.log(this.data)}
           <Masonry
-          bricks={data}
+          bricks={this.data}
           imageContainerStyle={{borderRadius:10}}
           spacing={3}
+          sorted={true}
+          //refreshControl={AddBento}
           customImageComponent={FastImage} 
         />
       </View>

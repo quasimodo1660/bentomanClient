@@ -104,6 +104,7 @@ class ObservableBentoList {
 
   getBentoList(){
     return this.bentoList
+    console.log(this.bentoList)
   }
 
   @action.bound
