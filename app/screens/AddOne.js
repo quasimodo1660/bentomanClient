@@ -11,7 +11,8 @@ import axios from 'axios'
 import {jsuser,tagList} from '../store/Store'
 import ResponsiveImage from 'react-native-responsive-image';
 import { TagSelect } from 'react-native-tag-select';
-export {getBentoList} from '../services/HttpDelegate'
+import {getBentoList} from '../services/HttpDelegate';
+import ImageResizer from 'react-native-image-resizer';
 
 
 
@@ -28,7 +29,8 @@ export default class AddBento extends React.Component {
         lat:'',
         offertime:'',
         file:'',
-        displayTime:''
+        displayTime:'',
+        fileName:''
     };
     this._postDataToServer=this._postDataToServer.bind(this)
   }
@@ -60,7 +62,7 @@ export default class AddBento extends React.Component {
         formData.append('photo',{
             uri:this.state.file,
             type:'file',
-            name:this.state.title
+            name:this.state.fileName
         })
         formData.append('des',this.state.description)
         formData.append('lng',this.state.lng)
@@ -91,7 +93,17 @@ export default class AddBento extends React.Component {
         };
   }
 
-  
+  _resize(data){
+    ImageResizer.createResizedImage(data, 400, 711, 'JPEG', 30)
+    .then((response)=>{
+      console.log(response.name)
+      console.log(response.size)
+      this.setState({file:response.uri})
+      this.setState({fileName:response.name})
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
 
   render() {
     if(this.state.file){
@@ -99,8 +111,8 @@ export default class AddBento extends React.Component {
             <ResponsiveImage 
                 source={{uri:this.state.file}}
                 //style={styles.canvas}
-                initWidth="250" 
-                initHeight="444"
+                initWidth="200" 
+                initHeight="356"
             />
         )
     }
@@ -197,7 +209,7 @@ export default class AddBento extends React.Component {
             }
             containerViewStyle={{width: '100%', marginLeft: 0,paddingTop:8}}
             onPress={()=>this.props.navigation.navigate('MyModal',{
-                onGoBack:(data)=> this.setState({file:data})
+                onGoBack:(data)=> this._resize(data)
             })}
             buttonStyle={{backgroundColor:'#FE8050'}}
             title='Upload Images'
@@ -263,9 +275,9 @@ const styles = StyleSheet.create({
   },
   tagcontainer: {
     flex: 1,
-    backgroundColor: '#FFF',
+    // backgroundColor: '#FFF',
     marginTop: 50,
-    marginLeft: 15,
+    // marginLeft: 15,
   },
   buttonContainer: {
     padding: 15,

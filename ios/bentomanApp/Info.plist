@@ -51,16 +51,21 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<!-- <key>localhost</key>
+			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
-			</dict> -->
+			</dict>
 			<key>yubinwang.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>192.168.31.138</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
 		</dict>

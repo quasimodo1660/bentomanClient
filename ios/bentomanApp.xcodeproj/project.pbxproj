@@ -50,9 +50,11 @@
 		AF939C83717A4D7CAA0900C0 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9E2BB9C952F7405A966ECEC1 /* Octicons.ttf */; };
 		B88CEC8A67A442069CE07515 /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE8A10DEB50C4A78BF95090C /* libFastImage.a */; };
 		BED507D32DF24A6BB2668DCA /* libRNCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E65EBD595B049B280BC7A02 /* libRNCamera.a */; };
+		BEFDF64DC95E4DD3AF6CE928 /* libRCTImageResizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5EE4F2B4C214F3D9197E681 /* libRCTImageResizer.a */; };
 		C189EC991FD2427B911B54C4 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8C933CF7D9C4BCCB55BC73B /* MaterialIcons.ttf */; };
 		C41B94AD20E2A89B00F0FE19 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C41B948520E2A87200F0FE19 /* libRCTCameraRoll.a */; };
 		C41B94FB20E2B8F200F0FE19 /* libReactNativeCameraKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C41B94FA20E2B8DE00F0FE19 /* libReactNativeCameraKit.a */; };
+		C44C2C0E20E6D91E00FB35B7 /* libRCTImageResizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C44C2C0D20E6D51400FB35B7 /* libRCTImageResizer.a */; };
 		C487647820CEF7240018814C /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C487647620CEF7170018814C /* Mapbox.framework */; };
 		C487647920CEF7240018814C /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C487647620CEF7170018814C /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C487647A20CEF75F0018814C /* libRCTMGL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C487647020CEF2CF0018814C /* libRCTMGL.a */; };
@@ -364,6 +366,13 @@
 			remoteGlobalIDString = 2646934E1CFB2A6B00F3A740;
 			remoteInfo = ReactNativeCameraKit;
 		};
+		C44C2C0C20E6D51400FB35B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BDCA3BE535140E49ECB86BC /* RCTImageResizer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D72D2E81C16249000E22EC1;
+			remoteInfo = RCTImageResizer;
+		};
 		C48763CC20CE4B470018814C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 012EEC0C558946058B1E4312 /* FastImage.xcodeproj */;
@@ -451,6 +460,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = bentomanApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = bentomanApp/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1BDCA3BE535140E49ECB86BC /* RCTImageResizer.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTImageResizer.xcodeproj; path = "../node_modules/react-native-image-resizer/ios/RCTImageResizer.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* bentomanApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bentomanApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* bentomanApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "bentomanApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -485,6 +495,7 @@
 		C487647620CEF7170018814C /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mapbox.framework; path = "../node_modules/@mapbox/react-native-mapbox-gl/ios/Mapbox.framework"; sourceTree = "<group>"; };
 		C48A657C20DB243000D9730B /* bentomanApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = bentomanApp.entitlements; path = bentomanApp/bentomanApp.entitlements; sourceTree = "<group>"; };
 		C49207E220D19861009E970E /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
+		C5EE4F2B4C214F3D9197E681 /* libRCTImageResizer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTImageResizer.a; sourceTree = "<group>"; };
 		E5B87306A17142F0BC1EDAE9 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		EE8A10DEB50C4A78BF95090C /* libFastImage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libFastImage.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -505,6 +516,7 @@
 				C49207EB20D1987F009E970E /* libRCTPushNotification.a in Frameworks */,
 				C41B94FB20E2B8F200F0FE19 /* libReactNativeCameraKit.a in Frameworks */,
 				C41B94AD20E2A89B00F0FE19 /* libRCTCameraRoll.a in Frameworks */,
+				C44C2C0E20E6D91E00FB35B7 /* libRCTImageResizer.a in Frameworks */,
 				C487647A20CEF75F0018814C /* libRCTMGL.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -524,6 +536,7 @@
 				CE472A85175A49A2B4FCF2CA /* libRNSVG.a in Frameworks */,
 				FCD53DD2DA2A4075B6E693FC /* libSafariViewManager.a in Frameworks */,
 				BED507D32DF24A6BB2668DCA /* libRNCamera.a in Frameworks */,
+				BEFDF64DC95E4DD3AF6CE928 /* libRCTImageResizer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -741,6 +754,7 @@
 				2D823334380E40759927594C /* RNSVG.xcodeproj */,
 				B0C0B33E2B5D4943BCBA41AC /* SafariViewManager.xcodeproj */,
 				70A4911EC7484FDFBC5EF114 /* RNCamera.xcodeproj */,
+				1BDCA3BE535140E49ECB86BC /* RCTImageResizer.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -823,6 +837,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C44C2C0920E6D51400FB35B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C44C2C0D20E6D51400FB35B7 /* libRCTImageResizer.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C487639E20CE4B420018814C /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -833,6 +855,7 @@
 				8C1A580BC20D4B0EAF8A08A0 /* libRNSVG-tvOS.a */,
 				91FAEFEE6FA84A7790CBFBB9 /* libSafariViewManager.a */,
 				8E65EBD595B049B280BC7A02 /* libRNCamera.a */,
+				C5EE4F2B4C214F3D9197E681 /* libRCTImageResizer.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1030,6 +1053,10 @@
 				{
 					ProductGroup = 00C302BC1ABCB91800DB3ED1 /* Products */;
 					ProjectRef = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
+				},
+				{
+					ProductGroup = C44C2C0920E6D51400FB35B7 /* Products */;
+					ProjectRef = 1BDCA3BE535140E49ECB86BC /* RCTImageResizer.xcodeproj */;
 				},
 				{
 					ProductGroup = 78C398B11ACF4ADC00677621 /* Products */;
@@ -1386,6 +1413,13 @@
 			remoteRef = C41B94F920E2B8DE00F0FE19 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		C44C2C0D20E6D51400FB35B7 /* libRCTImageResizer.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTImageResizer.a;
+			remoteRef = C44C2C0C20E6D51400FB35B7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C48763CD20CE4B470018814C /* libFastImage.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1495,7 +1529,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\nif [ \"${CONFIGURATION}\" == \"Debug\" ]; then\nexport SKIP_BUNDLING=true\nfi";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1605,12 +1639,14 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = bentomanAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1641,12 +1677,14 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = bentomanAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1682,6 +1720,7 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = bentomanApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1717,6 +1756,7 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/PushNotificationIOS/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = bentomanApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1755,11 +1795,13 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = "bentomanApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1800,11 +1842,13 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = "bentomanApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1844,11 +1888,13 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = "bentomanApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1888,11 +1934,13 @@
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-image-resizer/ios/RCTImageResizer",
 				);
 				INFOPLIST_FILE = "bentomanApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

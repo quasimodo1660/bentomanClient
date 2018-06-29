@@ -7,6 +7,7 @@ getBentoList=async()=>{
         .then((response) => response.json())
         .then((responseJson) => {
             console.log('here')
+            bentoList.emptyList()
             bentoList.setBentoList(responseJson)
         })
         .catch((error) =>{

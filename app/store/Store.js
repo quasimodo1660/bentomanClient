@@ -110,6 +110,11 @@ class ObservableBentoList {
   setBentoList(data){
     this.bentoList=data
   }
+
+  @action.bound
+  emptyList(){
+    this.bentoList=[]
+  }
 }
 
 
