@@ -103,7 +103,7 @@ class ObservableBentoList {
   } 
 
   getBentoList(){
-    return this.bentoList
+    return this.bentoList.slice()
     console.log(this.bentoList)
   }
 
@@ -115,6 +115,34 @@ class ObservableBentoList {
   @action.bound
   emptyList(){
     this.bentoList=[]
+  }
+
+  @action.bound
+  transformData(res){
+    res.map((b,i)=>{
+      var item={}
+      item['data']={}
+      item['key']=i
+      item.data['caption']=b.title
+      item.data['url']=b.url
+      item['uri']=b.images[0].image
+
+      item.renderFooter=(data)=>{
+        // console.log(self)
+        return (
+          <View key={'brick-footer'+i} style={{backgroundColor: '#fafafa', padding: 5, paddingRight: 9, paddingLeft: 9,borderRadius:10}}>
+            <Text style={{lineHeight: 20, fontSize: 16}}>{data.caption}</Text>
+          </View>
+        )
+      }
+      item.onPress=(data)=>{
+        this.props.navigation.navigate('Third',{
+          itemUrl:data.url,
+          itemTitle:data.caption
+        })
+      }
+      this.bentoList.push(item)
+    })
   }
 }
 

@@ -8,29 +8,32 @@ import {bentoList} from '../store/Store'
 import {getBentoList,getTagList} from '../services/HttpDelegate'
 import {autorun} from 'mobx'
 import AddBento from './AddOne'
+import { Icon } from 'react-native-elements'
 
 @observer
 export default class HomeScreen extends React.Component {
   constructor(props){
     super(props);
-    this.state={isLoading:true}
+    this.state={isLoading:true,data:[]}
     this.getBL=getBentoList
     this.getTags=getTagList
     this.data=[]
   }
 
   static navigationOptions = ({navigation}) => {
+    console.log(this)
     return{
       title: 'BENTOMAN',    
       // headerLeft: <LogoTitle />,
       headerRight:(
         <Ionicons
+        
           name='ios-add' 
           size={30}
           //color='orange'
           style={{paddingRight:10}}
           onPress = {()=>navigation.navigate('AddNew',{
-            reload:()=>this.getBL()
+            homeReload:()=>this.forceUpdate()
           })}
         />
       ),
@@ -38,6 +41,7 @@ export default class HomeScreen extends React.Component {
   };
 
   componentWillMount(){
+    console.log(this)
     this.getBL().then(
       this.setState({isLoading:false})
     ).catch((error)=>{
@@ -66,7 +70,7 @@ export default class HomeScreen extends React.Component {
     bentoList.getBentoList().map((b,i)=>{
       var item={}
       item['data']={}
-      item['key']="image"+i
+      item['key']=i
       item.data['caption']=b.title
       item.data['url']=b.url
       item['uri']=b.images[0].image
@@ -99,6 +103,13 @@ export default class HomeScreen extends React.Component {
           //refreshControl={AddBento}
           customImageComponent={FastImage} 
         />
+        <Icon
+          raised
+          name='heartbeat'
+          type='font-awesome'
+          color='#f50'
+          containerStyle={{backgroundColor:'red',position: "absolute", bottom: 1, right: 1}}
+          onPress={() => console.log('hello')} />
       </View>
     );
     }
