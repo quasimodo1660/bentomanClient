@@ -56,6 +56,7 @@ export default class AddBento extends React.Component {
     //console.log(JSON.stringify(this.tag.itemsSelected))
     const navigation=this.props.navigation
     const homeReload=this.props.navigation.state.params.homeReload
+    const getBL=getBentoList
     const formData= new FormData();
         formData.append('user',jsuser.getUser().user_id)
         formData.append('title',this.state.title)
@@ -79,12 +80,13 @@ export default class AddBento extends React.Component {
             }).then(function (response) {
             console.log(response)
              if(response.data.success){
-                // getBL().then(
-                    homeReload()
-                    navigation.goBack()
-                // ).catch((error)=>{
-                //     console.log(error)
-                // })
+                getBL().then(()=>{
+                  homeReload()
+                  navigation.goBack()
+                })    
+                .catch((error)=>{
+                    console.log(error)
+                })
              }
              else
                 console.log(response.data)

@@ -40,11 +40,13 @@ export default class HomeScreen extends React.Component {
     }
   };
 
-  componentWillMount(){
+  componentDidMount(){
     console.log(this)
-    this.getBL().then(
+    this.getBL().then(()=>{
       this.setState({isLoading:false})
-    ).catch((error)=>{
+      this._setData()
+    })      
+    .catch((error)=>{
       console.log(error)
     })  
     this.getTags()
@@ -53,20 +55,11 @@ export default class HomeScreen extends React.Component {
   componentWillUnmount(){
     this.getBL=null
     this.setState({isLoading:true})
+    this.data=[]
   }
-
-  render() {
-    if(this.state.isLoading){
-      return(
-        <View style={{flex: 1, padding: 20}}>
-          <ActivityIndicator/>
-        </View>
-      )
-    }
-    
-    
   
-
+  _setData(){
+    this.data=[]
     bentoList.getBentoList().map((b,i)=>{
       var item={}
       item['data']={}
@@ -91,6 +84,23 @@ export default class HomeScreen extends React.Component {
       }
       this.data.push(item)
     })
+    console.log(this.data)
+    this.forceUpdate()
+  }
+
+  render() {
+    if(this.state.isLoading){
+      return(
+        <View style={{flex: 1, padding: 20}}>
+          <ActivityIndicator/>
+        </View>
+      )
+    }
+    
+    
+  
+
+    
 
     return (
       <View style={{ flex: 1, flexGrow: 10, padding:5,paddingTop:10 }}>
@@ -105,11 +115,16 @@ export default class HomeScreen extends React.Component {
         />
         <Icon
           raised
-          name='heartbeat'
+          name='plus'
           type='font-awesome'
-          color='#f50'
-          containerStyle={{backgroundColor:'red',position: "absolute", bottom: 1, right: 1}}
-          onPress={() => console.log('hello')} />
+          color='white'
+          containerStyle={{backgroundColor:'#FE8050',position: "absolute", bottom: 2, right: 1}}
+          onPress={() => this.props.navigation.navigate('AddNew',{
+            homeReload:()=>{
+              console.log('force update')
+              this._setData()
+            }
+          })} />
       </View>
     );
     }
