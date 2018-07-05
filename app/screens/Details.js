@@ -21,10 +21,7 @@ export default class DetailsScreen extends React.Component {
     };  
   } 
   
-  _signOutAsync = async () => {
-    await AsyncStorage.clear();
-    this.props.navigation.navigate('Auth');
-  };
+ 
 
  
   render() {
@@ -58,10 +55,6 @@ export default class DetailsScreen extends React.Component {
             }          
           })
         }
-        <Button
-            title="Sign Out"
-            onPress={this._signOutAsync}
-        />
     </ScrollView>
     );
   }

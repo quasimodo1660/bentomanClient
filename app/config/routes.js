@@ -59,7 +59,9 @@ const MainRootStack = createStackNavigator(
 );
 
 const ProfileStack = createStackNavigator(
-  { Profile:ProfileScreen}
+  { Profile:ProfileScreen,
+    Third: Third,
+  }
 )
 
 
