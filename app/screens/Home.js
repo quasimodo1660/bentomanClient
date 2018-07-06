@@ -25,18 +25,18 @@ export default class HomeScreen extends React.Component {
     return{
       title: 'BENTOMAN',    
       // headerLeft: <LogoTitle />,
-      headerRight:(
-        <Ionicons
+      // headerRight:(
+      //   <Ionicons
         
-          name='ios-add' 
-          size={30}
-          //color='orange'
-          style={{paddingRight:10}}
-          onPress = {()=>navigation.navigate('AddNew',{
-            homeReload:()=>this.forceUpdate()
-          })}
-        />
-      ),
+      //     name='ios-add' 
+      //     size={30}
+      //     //color='orange'
+      //     style={{paddingRight:10}}
+      //     onPress = {()=>navigation.navigate('AddNew',{
+      //       homeReload:()=>this.forceUpdate()
+      //     })}
+      //   />
+      // ),
     }
   };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet,Button, AsyncStorage,Image,ScrollView,Text, } from 'react-native';
 import {jsuser, userList} from '../store/Store.js'
 import { observer } from 'mobx-react/native'
-import { SearchBar, ListItem, } from 'react-native-elements'
+import { SearchBar, ListItem} from 'react-native-elements'
 import socket from '../config/Socket.js'
 
 
@@ -47,6 +47,11 @@ export default class DetailsScreen extends React.Component {
               avatar={<Image source={{ uri: l.img }} style={{borderRadius:15, height:30, width:30 }} />}
               title={l.username}
               subtitle={l.platform}
+              // badge={{
+              //   value:0,
+              //   textStyle:{ color: 'white' },
+              //   containerStyle:{backgroundColor:'#FE8050'}
+              // }}
               onPress={()=>{
                 goToChatWindow(l)
                 socket.loadConversation({'sender':jsuser.getUser().user_id,'receiver':l.user_id})

@@ -49,6 +49,7 @@ export default class ProfileScreen extends React.Component {
                     />
                     <Text h2>{jsuser.getUser().username}</Text>
                 </View>
+                
                 {
                     
                     this.bento.map((x,i)=>{
@@ -56,6 +57,7 @@ export default class ProfileScreen extends React.Component {
                         return(
                             <Card
                                 mediaSource={{uri:x.images[0].image}}
+                                key={i}
                             >
                             {/* <CardImage 
                                 source={{uri: x.images[0].image}} 
@@ -84,6 +86,7 @@ export default class ProfileScreen extends React.Component {
                         } 
                     })
                 }
+               
                 <Button
                     raised
                     buttonStyle={{backgroundColor:'red'}}
